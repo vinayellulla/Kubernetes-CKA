@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: nginx-rs-set
+spec:
+  replicas: 4
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: 
+          - nginx
+          - apache 
+  template:
+    metadata:
+      labels:
+        app: apache
+        environment: development
+    spec:
+      containers:
+        - image: nginx
+          name: nginx-rs
